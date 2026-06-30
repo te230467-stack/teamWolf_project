@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">お問い合わせ</h1>
+
+        <div class="card mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">必要事項をご記入ください</h5>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/contact/send}" th:object="${contactForm}" method="post">
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">お名前</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'" id="name" th:field="*{name}" placeholder="山田 太郎">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">電話番号</label>
+                        <input type="tel" class="form-control" th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid'" id="phone" th:field="*{phone}" placeholder="090-1234-5678">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="message" class="form-label">お問い合わせ内容</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea class="form-control" th:classappend="${#fields.hasErrors('message')} ? 'is-invalid'" id="message" th:field="*{message}" rows="5" placeholder="ご質問やご要望をご記入ください"></textarea>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></div>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <button type="submit" class="btn btn-success">送信する</button>
+                        <button type="button" th:onclick="|location.href='@{/books/reserve}'|" class="btn btn-outline-secondary ms-2">予約画面に戻る</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

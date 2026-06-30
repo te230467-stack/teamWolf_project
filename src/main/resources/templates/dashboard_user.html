@@ -1,4 +1,3 @@
-<!-- user/dashboard.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -32,13 +31,10 @@
             <div class="card-body">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a href="/books">書籍一覧</a>
+                        <a th:href="@{/reserve}">書籍を予約する</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="/books/create">書籍を予約する</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/mypage/reserve">自分の予約一覧</a>
+                        <a th:href="@{/reserve/list}">自分の予約一覧</a>
                     </li>
                 </ul>
             </div>
