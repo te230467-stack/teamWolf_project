@@ -19,12 +19,12 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
     // reserveRepository.save(reserve);
 
     // ---- READ（補助） ----
-    Optional<Reserve> findByReserveId(String reserveId);
+    Optional<Reserve> findById(Long Id);
 
-    List<Reserve> findByPhoneNumber(String phoneNumber);
+    //List<Reserve> findByPhoneNumber(String phoneNumber);
 
     // 重複予約チェック（BI010：同じ電話番号・同じ書名）
-    Optional<Reserve> findByPhoneNumberAndTitle(String phoneNumber, String title);
+    //Optional<Reserve> findByPhoneNumberAndTitle(String phoneNumber, String title);
 
     // ---- UPDATE ----
     // 発注状態の更新（BI004）

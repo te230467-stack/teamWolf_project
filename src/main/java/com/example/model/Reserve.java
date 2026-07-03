@@ -22,9 +22,12 @@ public class Reserve{
     @Column(name = "publisher", nullable = false)
     private String publisher;
 
+    @Column(name = "orderStatus")
+    private boolean orderStatus;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private String user_id;
+    private User user;
 
     public Reserve() {}
 
@@ -44,8 +47,8 @@ public class Reserve{
     public String getPublisher() { return publisher; }
     public void setPublisher(String publisher) { this.publisher = publisher; }
 
-    public String getUser_id() { return user_id; }
-    public void setPrice(String user_id) { this.user_id = user_id; }
+    public User getUser_id() { return user; }
+    public void setPrice(User user) { this.user = user; }
 
         @Override
     public String toString() {
@@ -55,7 +58,7 @@ public class Reserve{
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", publisher='" + publisher + '\'' +
-                ", user=" + user_id +
+                ", user=" + user.getId().toString() +
                 '}';
     }
 }
