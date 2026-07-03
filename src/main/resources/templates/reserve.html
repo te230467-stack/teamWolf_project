@@ -34,11 +34,7 @@
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"></div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">電話番号</label>
-                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid'" id="phone" th:field="*{phone}">
-                        <div class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
-                    </div>
+                    
 
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary">予約する</button>

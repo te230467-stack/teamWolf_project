@@ -37,7 +37,7 @@ public class UserController {
         // タイトルが未入力なら、エラーメッセージを表示して入力画面へ戻す
         if (reserve.getTitle() == null || reserve.getTitle().isBlank()) {
             model.addAttribute("error", "書名を入力してください");
-            return "reserve-form";
+            return "reserve";
         }
 
         // 入力された予約情報をServiceへ渡して保存する
@@ -62,7 +62,7 @@ public class UserController {
         // 取得した予約情報をHTMLへ渡す
         model.addAttribute("reserve", reserve);
 
-        return "reserve-edit";
+        return "edit";
     }
 
     // 予約更新処理
@@ -82,7 +82,7 @@ public class UserController {
         // Serviceから全予約を取得してHTMLへ渡す
         model.addAttribute("reserves", reserveService.getAllReserves());
 
-        return "reserve-list";
+        return "reservelist";
     }
 
     // 予約完了画面を表示する
