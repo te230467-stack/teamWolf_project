@@ -2,46 +2,63 @@ package com.example.service;
 
 import com.example.model.Reserve;
 import com.example.repository.ReserveRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class ReserveService {
-    @Autowired
-    private ReserveRepository reserverepository;
 
-    //すべての書籍を取得
-    public List<Reserve> getAllReserves(){
-        return reserverepository.findAll();
+    // ReserveRepositoryを使ってDB操作を行う
+    private final ReserveRepository reserveRepository;
+
+    // コンストラクタインジェクション
+    // Springが自動でReserveRepositoryを渡してくれる
+    public ReserveService(ReserveRepository reserveRepository) {
+        this.reserveRepository = reserveRepository;
     }
-    //1件書籍取得
-    public Optional<Reserve> getReservesById(Long id){
-        return reserverepository.findById(id);
+
+    // すべての予約情報を取得する
+    public List<Reserve> getAllReserves() {
+        return reserveRepository.findAll();
     }
-    // 書籍登録
-    public Reserve createReserve(Reserve reserve){
-        return reserverepository.save(reserve);
+
+    // IDを指定して1件の予約情報を取得する
+    public Optional<Reserve> getReservesById(Long id) {
+        return reserveRepository.findById(id);
     }
-    //更新
+
+    // 予約情報を登録する
+    public Reserve createReserve(Reserve reserve) {
+        return reserveRepository.save(reserve);
+    }
+
+    // 予約情報を更新する
     public Reserve updateReserve(Long id, Reserve reserveDetails) {
 
-        Reserve reserve = reserverepository.findById(id).orElseThrow(() -> new IllegalArgumentException("予約が見つかりません。"));
-        
+        // 指定されたIDの予約がなければエラーを出す
+        Reserve reserve = reserveRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("予約が見つかりません。"));
+
+        // 入力された内容で既存データを更新する
         reserve.setReserve_id(reserveDetails.getReserve_id());
         reserve.setTitle(reserveDetails.getTitle());
         reserve.setAuthor(reserveDetails.getAuthor());
         reserve.setPublisher(reserveDetails.getPublisher());
 
-        return reserverepository.save(reserve);
+        // 更新した内容を保存する
+        return reserveRepository.save(reserve);
     }
-    //削除
-    public void deleteReserve(Long id){
-        Reserve reserve = reserverepository.findById(id).orElseThrow(()->new IllegalArgumentException("書籍が見つかりません"));
-        reserverepository.delete(reserve);
+
+    // 予約情報を削除する
+    public void deleteReserve(Long id) {
+
+        // 指定されたIDの予約がなければエラーを出す
+        Reserve reserve = reserveRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("予約が見つかりません。"));
+
+        // 予約情報を削除する
+        reserveRepository.delete(reserve);
     }
 }
