@@ -49,7 +49,7 @@ public class AdminController {
     // 管理者用：予約編集画面
     @GetMapping("/admin/reserves/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Reserve reserve = reserveService.getReservesById(id).orElse(null);
+        Reserve reserve = reserveService.getReserveById(id).orElse(null);
         //HTMLへ渡す
         if(reserve==null){
             return "redirect:/admin/reserves";

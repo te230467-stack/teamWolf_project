@@ -25,13 +25,17 @@ public class ReserveService {
     }
 
     // IDを指定して1件の予約情報を取得する
-    public Optional<Reserve> getReservesById(Long id) {
+    public Optional<Reserve> getReserveById(Long id) {
         return reserveRepository.findById(id);
     }
 
     // 予約情報を登録する
     public Reserve createReserve(Reserve reserve) {
         return reserveRepository.save(reserve);
+    }
+
+    public void updateOrderStatus(Long id, boolean orderStatus) {
+        reserveRepository.updateOrderStatus(id, orderStatus);
     }
 
     // 予約情報を更新する
@@ -42,7 +46,7 @@ public class ReserveService {
                 .orElseThrow(() -> new IllegalArgumentException("予約が見つかりません。"));
 
         // 入力された内容で既存データを更新する
-        reserve.setReserve_id(reserveDetails.getReserve_id());
+        // reserve.setReserve_id(reserveDetails.getReserve_id());
         reserve.setTitle(reserveDetails.getTitle());
         reserve.setAuthor(reserveDetails.getAuthor());
         reserve.setPublisher(reserveDetails.getPublisher());

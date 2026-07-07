@@ -31,7 +31,7 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
     @Modifying
     @Transactional
     @Query("UPDATE Reserve r SET r.orderStatus = :orderStatus WHERE r.id = :id")
-    int updateOrderStatus(@Param("id") Long id, @Param("orderStatus") String orderStatus);
+    int updateOrderStatus(@Param("id") Long id, @Param("orderStatus") boolean orderStatus);
 
 
     // 予約内容の編集（BI003）

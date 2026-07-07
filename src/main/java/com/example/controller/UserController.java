@@ -35,16 +35,16 @@ public class UserController {
     public String reserveBook(Reserve reserve, Model model) {
 
         // タイトルが未入力なら、エラーメッセージを表示して入力画面へ戻す
-        if (reserve.getTitle() == null || reserve.getTitle().isBlank()) {
-            model.addAttribute("error", "書名を入力してください");
-            return "reserve";
-        }
+        //if (reserve.getTitle() == null || reserve.getTitle().isBlank()) {
+            //model.addAttribute("error", "書名を入力してください");
+            //return "reserve";
+        //}
 
         // 入力された予約情報をServiceへ渡して保存する
         reserveService.createReserve(reserve);
 
-        // 登録後は予約完了画面へ移動する
-        return "redirect:/reserve/complete";
+        // 登録後は予約完了画面へ移動する←これは嘘
+        return "redirect:/reserve";
     }
 
     // 予約編集画面を表示する
@@ -52,7 +52,7 @@ public class UserController {
     public String showEditForm(@PathVariable Long id, Model model) {
 
         // URLの{id}を使って、編集対象の予約情報を取得する
-        Reserve reserve = reserveService.getReservesById(id).orElse(null);
+        Reserve reserve = reserveService.getReserveById(id).orElse(null);
 
         // 存在しないIDなら一覧画面へ戻す
         if (reserve == null) {
@@ -72,7 +72,7 @@ public class UserController {
         // 指定したIDの予約情報を、入力内容で更新する
         reserveService.updateReserve(id, reserve);
 
-        return "redirect:/reserve/complete";
+        return "redirect:/reserve";
     }
 
     // 予約一覧画面を表示する
@@ -85,11 +85,7 @@ public class UserController {
         return "reservelist";
     }
 
-    // 予約完了画面を表示する
-    @GetMapping("/reserve/complete")
-    public String showComplete() {
-        return "reserve-complete";
-    }
+    
 
     // 予約削除処理
     @PostMapping("/reserve/delete/{id}")
