@@ -58,7 +58,6 @@ public class UserController {
         if (reserve == null) {
             return "redirect:/reserve/list";
         }
-
         // 取得した予約情報をHTMLへ渡す
         model.addAttribute("reserve", reserve);
 
