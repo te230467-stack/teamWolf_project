@@ -1,12 +1,18 @@
 package com.example.model;
 
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.*;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User{
+public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,8 +26,8 @@ public class User{
     @Column(nullable = false)
     private String role;
 
-    @Column(nullable = false)
-    private String phonenumber;
+    // @Column(nullable = false)
+    // private String phonenumber;
 
     public User(){
     }
@@ -32,10 +38,16 @@ public class User{
         this.role = role;
     }
 
+        @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
+    }
+
     public Long getId(){
         return id;
     }
 
+    @Override
     public String getUsername(){
         return username;
     }
@@ -44,6 +56,7 @@ public class User{
         this.username = username;
     }
 
+    @Override
     public String getPassword(){
         return password;
     }
@@ -60,6 +73,25 @@ public class User{
         this.role = role;
     }
 
-    public String getPhoneNumber() { return phonenumber; }
-    public void setPhoneNumber(String phonenumber) { this.phonenumber = phonenumber; }
+        @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+    // public String getPhoneNumber() { return phonenumber; }
+    // public void setPhoneNumber(String phonenumber) { this.phonenumber = phonenumber; }
 }

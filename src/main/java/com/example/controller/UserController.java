@@ -43,8 +43,9 @@ public class UserController {
         // 入力された予約情報をServiceへ渡して保存する
         reserveService.createReserve(reserve);
 
-        // 登録後は予約完了画面へ移動する←これは嘘
-        return "redirect:/reserve";
+        model.addAttribute("reserve",reserve);
+        // 登録後は予約完了画面へ移動する
+        return "reserve-complete";
     }
 
     // 予約編集画面を表示する
@@ -70,8 +71,8 @@ public class UserController {
 
         // 指定したIDの予約情報を、入力内容で更新する
         reserveService.updateReserve(id, reserve);
-
-        return "redirect:/reserve";
+        //予約一覧画面へ戻る
+        return "redirect:/reserve/list";
     }
 
     // 予約一覧画面を表示する
