@@ -1,3 +1,4 @@
+
 package com.example.controller;
 
 import com.example.model.Reserve;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     // Serviceを使うための変数
@@ -57,7 +59,7 @@ public class UserController {
 
         // 存在しないIDなら一覧画面へ戻す
         if (reserve == null) {
-            return "redirect:/reserve/list";
+            return "redirect:/user/reserve/list";
         }
         // 取得した予約情報をHTMLへ渡す
         model.addAttribute("reserve", reserve);
@@ -72,7 +74,7 @@ public class UserController {
         // 指定したIDの予約情報を、入力内容で更新する
         reserveService.updateReserve(id, reserve);
         // 予約一覧画面へ戻る
-        return "redirect:/reserve/list";
+        return "redirect:/user/reserve/list";
     }
 
     // 予約一覧画面を表示する
@@ -92,6 +94,6 @@ public class UserController {
         // 指定したIDの予約情報を削除する
         reserveService.deleteReserve(id);
 
-        return "redirect:/reserve/list";
+        return "redirect:/user/reserve/list";
     }
 }

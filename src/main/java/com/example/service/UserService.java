@@ -37,10 +37,7 @@ public class UserService {
 
         user.setPassword(encodedPassword);
 
-        // roleが設定されていなければ一般ユーザーにする
-        if (user.getRole() == null || user.getRole().isBlank()) {
-            user.setRole("ROLE_USER");
-        }
+        user.setRole("ROLE_USER");
 
         return userRepository.save(user);
     }
