@@ -4,9 +4,11 @@ package com.example.controller;
 import com.example.model.Reserve;
 import com.example.service.ReserveService;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 @RequestMapping("/user")
@@ -22,6 +24,22 @@ public class UserController {
         this.reserveService = reserveService;
     }
 
+
+    @GetMapping("/dashboard")
+    public String showdashboard(Model model,Authentication authentication) {
+        
+        boolean isAdmin =
+        authentication.getAuthorities().stream()
+            .anyMatch(a ->
+            a.getAuthority().equals("ROLE_ADMIN"));
+
+        if(isAdmin){
+            return "redirect:/admin/dashboard";
+        }
+        return "dashboard_user";
+
+    }
+    
     // 予約入力画面を表示する
     @GetMapping("/reserve")
     public String showReserveForm(Model model) {

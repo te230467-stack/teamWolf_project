@@ -45,13 +45,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                     .requestMatchers("/auth/**").permitAll()
                     .requestMatchers("/webjars/**").permitAll()
+                    .requestMatchers("/user/dashboard").hasRole("ADMIN")
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .requestMatchers("/user/**").hasRole("USER")
                     .anyRequest().authenticated()
                 )
                 .formLogin(from -> from
                     .loginPage("/auth/login")
-                    .defaultSuccessUrl("/reserve/list",true)
+                    .defaultSuccessUrl("/user/dashboard",true)
                     .permitAll()
                 )
                 .logout(logout -> logout

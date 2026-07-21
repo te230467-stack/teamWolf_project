@@ -33,30 +33,33 @@ public class LoginController {
     }
 
     // ログイン成功時に予約画面に一覧へ
-    @PostMapping("/login")
-    public String login(
-            @RequestParam String username,
-            @RequestParam String password,
-            HttpSession session,
-            Model model) {
-
-        User user = userService.login(username, password)
-                .orElse(null);
-
-        if (user == null) {
-            model.addAttribute(
-                    "error",
-                    "ユーザー名またはパスワードが違います");
-
+/*
+@PostMapping("/login")
+public String login(
+    @RequestParam String username,
+    @RequestParam String password,
+    HttpSession session,
+    Model model) {
+        
+    User user = userService.login(username, password)
+    .orElse(null);
+    
+    if (user == null) {
+        model.addAttribute(
+            "error",
+            "ユーザー名またはパスワードが違います");
+            
             return "login";
         }
-
+        
         session.setAttribute("loginUser", user);
-
+        
         return "redirect:/user/reserve";
     }
-
-    // GET /auth/register
+    */
+    
+   
+   // GET /auth/register
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
 
@@ -68,31 +71,32 @@ public class LoginController {
     // POST /auth/register
     @PostMapping("/register")
     public String registerUser(User_regiser user_regiser) {
+        
+    User user = new User();
+    Userprofile user_profile = new Userprofile();
 
-        User user = new User();
-        Userprofile user_profile = new Userprofile();
+    user.setUsername(user_regiser.getUsername());
+    user.setPassword(user_regiser.getPassword());
 
-        user.setUsername(user_regiser.getUsername());
-        user.setPassword(user_regiser.getPassword());
+    userService.createUser(user);
 
-        userService.createUser(user);
+    user_profile.setUser(user);
+    user_profile.setEmail(user_regiser.getEmail());
+    user_profile.setPhonenumber(user_regiser.getPhonenumber());
 
-        user_profile.setUser(user);
-        user_profile.setEmail(user_regiser.getEmail());
-        user_profile.setPhonenumber(user_regiser.getPhonenumber());
+    userprofileService.createUserprofile(user_profile);
 
-        userprofileService.createUserprofile(user_profile);
-
-        return "redirect:/auth/login";
+    return "redirect:/auth/login";
     }
 
-    // GET /auth/account/edit/{id}
-    @GetMapping("/account/edit/{id}")
-    public String showAccountEditForm(
-            @PathVariable Long id,
-            Model model) {
 
-        User user = userService.getUserById(id)
+// GET /auth/account/edit/{id}
+@GetMapping("/account/edit/{id}")
+public String showAccountEditForm(
+    @PathVariable Long id,
+    Model model) {
+        
+    User user = userService.getUserById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "指定されたユーザーが存在しません"));

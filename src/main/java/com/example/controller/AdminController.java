@@ -19,6 +19,11 @@ public class AdminController {
         this.reserveService = reserveService;
     }
 
+    @GetMapping("/dashboard")
+    public String showdashboard(Model model) {
+        return "dashboard_admin";
+    }
+
     // GET /admin/reserves
     @GetMapping("/reserves")
     public String showReserveList(Model model) {
