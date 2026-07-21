@@ -10,6 +10,9 @@ import com.example.model.User;
 import com.example.model.Userprofile;
 import com.example.repository.UserprofileRepository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserprofileService {
     @Autowired
@@ -19,6 +22,10 @@ public class UserprofileService {
 
         return userRepository.save(user_proifle);
 
+    }
+
+    public List<Userprofile> getAllUserprofiles(){
+        return userRepository.findAll();
     }
 
 }

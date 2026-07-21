@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,6 +32,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String role;
 
+    @OneToOne(mappedBy = "user")
+    private Userprofile userprofile;
+
     public User() {
     }
 
@@ -42,6 +46,11 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    
+    public Userprofile getUserProfile() {
+        return userprofile;
     }
 
     @Override

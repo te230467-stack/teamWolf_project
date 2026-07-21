@@ -3,6 +3,7 @@ package com.example.controller;
 
 import com.example.model.Reserve;
 import com.example.service.ReserveService;
+import com.example.model.User;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -52,7 +53,7 @@ public class UserController {
 
     // 予約登録処理
     @PostMapping("/reserve")
-    public String reserveBook(Reserve reserve, Model model) {
+    public String reserveBook(Reserve reserve, Model model,Authentication authentication) {
 
         // タイトルが未入力なら、エラーメッセージを表示して入力画面へ戻す
         // if (reserve.getTitle() == null || reserve.getTitle().isBlank()) {
@@ -61,11 +62,13 @@ public class UserController {
         // }
 
         // 入力された予約情報をServiceへ渡して保存する
+        User user = (User)authentication.getPrincipal();
+        reserve.setUser(user);
         reserveService.createReserve(reserve);
 
         model.addAttribute("reserve", reserve);
         // 登録後は予約完了画面へ移動する
-        return "reserve-complete";
+        return "completion";
     }
 
     // 予約編集画面を表示する

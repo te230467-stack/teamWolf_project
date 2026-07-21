@@ -2,8 +2,11 @@ package com.example.controller;
 
 import com.example.model.Reserve;
 import com.example.service.ReserveService;
+import com.example.service.UserService;
+import com.example.service.UserprofileService;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +17,12 @@ import org.springframework.web.server.ResponseStatusException;
 public class AdminController {
 
     private final ReserveService reserveService;
-
-    public AdminController(ReserveService reserveService) {
+    private final UserService userService;
+    private final UserprofileService userprofileService;
+    public AdminController(ReserveService reserveService, UserService userService, UserprofileService userprofileService) {
         this.reserveService = reserveService;
+        this.userService = userService;
+        this.userprofileService = userprofileService;
     }
 
     @GetMapping("/dashboard")
@@ -26,13 +32,12 @@ public class AdminController {
 
     // GET /admin/reserves
     @GetMapping("/reserves")
-    public String showReserveList(Model model) {
+    public String showReserveList(Model model,Authentication authentication) {
 
         model.addAttribute(
                 "reserves",
                 reserveService.getAllReserves());
-
-        return "admin-reserve-list";
+        return "admin_reservelist";
     }
 
     // GET /admin/reserves/new

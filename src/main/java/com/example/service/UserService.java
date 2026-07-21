@@ -5,8 +5,12 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.model.Reserve;
 import com.example.model.User;
 import com.example.repository.UserRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -21,6 +25,10 @@ public class UserService {
 
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public List<User> getAllUser() {
+        return userRepository.findAll();
     }
 
     // ユーザー登録
