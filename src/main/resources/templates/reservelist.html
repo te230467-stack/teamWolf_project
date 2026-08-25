@@ -19,6 +19,7 @@
                             <th>タイトル</th>
                             <th>著者</th>
                             <th>出版社</th>
+                            <th>予約状況</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,10 +27,19 @@
                             <td th:text="${reserve.title}"></td>
                             <td th:text="${reserve.author}"></td>
                             <td th:text="${reserve.publisher}"></td>
+                            <td th:text="${reserve.orderStatus ? '発注済' : '未発注'}"></td>
+                            <td>
+                             <a th:href="@{/reserve/edit/{id}(id=${reserve.id})}" class="btn btn-sm btn-outline-primary">
+                              編集
+                             </a>
+                            </td> 
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <div class="mb-3">
+                <a th:href="@{/user/reserve/list}">マイページに戻る</a>
+               </div>
         </div>
     </div> <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>

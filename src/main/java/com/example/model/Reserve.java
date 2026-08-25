@@ -47,7 +47,8 @@ public class Reserve{
     public String getPublisher() { return publisher; }
     public void setPublisher(String publisher) { this.publisher = publisher; }
 
-    
+    public boolean getOrderStatus(){return orderStatus;}
+    public void setOrderStatus(boolean orderStatus){this.orderStatus = orderStatus;}
     
     public User getUser(){
         return user; 
