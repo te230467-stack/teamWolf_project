@@ -39,7 +39,30 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
+    @Bean
+    public SecurityFilterChain securityException(HttpSecurity http) throws Exception {
+            http
+                .authorizeHttpRequests(authz -> authz
+                    .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers("/webjars/**").permitAll()
+                    .requestMatchers("/user/dashboard").authenticated()
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/user/**").hasRole("USER")
+                    .anyRequest().authenticated()
+                )
+                .formLogin(from -> from
+                    .loginPage("/auth/login")
+                    .defaultSuccessUrl("/user/dashboard",true)
+                    .permitAll()
+                )
+                .logout(logout -> logout
+                    .logoutSuccessUrl("/auth/login")
+                    .permitAll()
+                )
+                .authenticationProvider(authenticationProvider());
 
+                return http.build();
+    }
 
 
 }

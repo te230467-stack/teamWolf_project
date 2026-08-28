@@ -1,13 +1,18 @@
+
 package com.example.controller;
 
 import com.example.model.Reserve;
 import com.example.service.ReserveService;
+import com.example.model.User;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     // Serviceを使うための変数
@@ -20,6 +25,22 @@ public class UserController {
         this.reserveService = reserveService;
     }
 
+
+    @GetMapping("/dashboard")
+    public String showdashboard(Model model,Authentication authentication) {
+        
+        boolean isAdmin =
+        authentication.getAuthorities().stream()
+            .anyMatch(a ->
+            a.getAuthority().equals("ROLE_ADMIN"));
+
+        if(isAdmin){
+            return "redirect:/admin/dashboard";
+        }
+        return "dashboard_user";
+
+    }
+    
     // 予約入力画面を表示する
     @GetMapping("/reserve")
     public String showReserveForm(Model model) {
@@ -32,7 +53,7 @@ public class UserController {
 
     // 予約登録処理
     @PostMapping("/reserve")
-    public String reserveBook(Reserve reserve, Model model) {
+    public String reserveBook(Reserve reserve, Model model,Authentication authentication) {
 
         // タイトルが未入力なら、エラーメッセージを表示して入力画面へ戻す
         // if (reserve.getTitle() == null || reserve.getTitle().isBlank()) {
@@ -41,11 +62,13 @@ public class UserController {
         // }
 
         // 入力された予約情報をServiceへ渡して保存する
+        User user = (User)authentication.getPrincipal();
+        reserve.setUser(user);
         reserveService.createReserve(reserve);
 
         model.addAttribute("reserve", reserve);
         // 登録後は予約完了画面へ移動する
-        return "reserve-complete";
+        return "completion";
     }
 
     // 予約編集画面を表示する
@@ -57,7 +80,7 @@ public class UserController {
 
         // 存在しないIDなら一覧画面へ戻す
         if (reserve == null) {
-            return "redirect:/reserve/list";
+            return "redirect:/user/reserve/list";
         }
         // 取得した予約情報をHTMLへ渡す
         model.addAttribute("reserve", reserve);
@@ -72,7 +95,7 @@ public class UserController {
         // 指定したIDの予約情報を、入力内容で更新する
         reserveService.updateReserve(id, reserve);
         // 予約一覧画面へ戻る
-        return "redirect:/reserve/list";
+        return "redirect:/user/reserve/list";
     }
 
     // 予約一覧画面を表示する
@@ -92,6 +115,6 @@ public class UserController {
         // 指定したIDの予約情報を削除する
         reserveService.deleteReserve(id);
 
-        return "redirect:/reserve/list";
+        return "redirect:/user/reserve/list";
     }
 }

@@ -19,7 +19,7 @@
                             ユーザー名またはパスワードが間違っています
                         </div>
 
-                        <form th:action="@{/login}" method="post">
+                        <form th:action="@{/auth/login}" method="post">
                             <div class="mb-3">
                                 <label for="username" class="form-label">ユーザー名</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
@@ -35,7 +35,7 @@
 
                         <hr>
                         <p class="text-center">
-                            ユーザーをお持ちでない方は<a href="registar.html">こちら</a>から登録してください
+                            ユーザーをお持ちでない方は<a href="/auth/register">こちら</a>から登録してください
                         </p>
                     </div>
                 </div>

@@ -13,7 +13,7 @@
         <div class="container">
             <span class="navbar-brand">書籍管理システム</span>
             <span class="navbar-text text-white ms-auto">
-                ユーザー: <span sec:authentication="name"></span>
+                ユーザー: <span th:text="${#authentication.name}"></span>
                 （管理者）
             </span>
         </div>

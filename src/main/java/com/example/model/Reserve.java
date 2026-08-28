@@ -25,9 +25,9 @@ public class Reserve{
     @Column(name = "orderStatus")
     private boolean orderStatus;
 
-    //@ManyToOne
-    //@JoinColumn(name = "user_id", nullable = false)
-    //private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Reserve() {}
 
@@ -47,15 +47,16 @@ public class Reserve{
     public String getPublisher() { return publisher; }
     public void setPublisher(String publisher) { this.publisher = publisher; }
 
+    public boolean getOrderStatus(){return orderStatus;}
+    public void setOrderStatus(boolean orderStatus){this.orderStatus = orderStatus;}
     
-    /*
     public User getUser(){
         return user; 
     }
     public void setUser(User user) { 
         this.user = user; 
     }
-    */
+    
     
     public boolean isOrderStatus(){
         return orderStatus;
@@ -65,11 +66,11 @@ public class Reserve{
     public String toString() {
         return "Reserve{" +
                 "id=" + id +
-               // ", reserve_id='" + reserve_id + '\'' +
+                //", reserve_id='" + reserve_id + '\'' +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", publisher='" + publisher + '\'' +
-                //", user=" + user.getId().toString() +
+                ", user=" + user.getId().toString() +
                 '}';
     }
 }

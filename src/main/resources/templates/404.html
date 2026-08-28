@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found | ページが見つかりません</title>
+</head>
+<body>
+
+    <div class="container">
+        <!-- エラーコード -->
+        <div class="error-code">404</div>
+        
+        <!-- エラータイトル -->
+        <h1 class="error-title">ページが見つかりません</h1>
+        
+        <!-- 説明文 -->
+        <p class="error-message">
+            お探しのページは、移動または削除されたか、一時的に利用できない可能性があります。URLにお間違いがないか再度ご確認ください。
+        </p>
+        
+        <!-- アクションボタン -->
+        <a href="/" class="btn-home">トップページに戻る</a>
+
+        <div style="margin-top: 15px;">
+            <a th:href="@{/reserve}">予約画面に戻る</a>
+        </div>
+        
+        <div style="margin-top: 15px;">
+            <a th:href="@{/login}">ログイン画面に戻る</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

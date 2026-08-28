@@ -15,7 +15,7 @@
                 <h5 class="mb-0">予約を登録</h5>
             </div>
             <div class="card-body">
-                <form th:action="@{/reserve}" th:object="${reserve}" method="post">
+                <form th:action="@{/user/reserve}" th:object="${reserve}" method="post">
                     <div class="mb-3">
                         <label for="title" class="form-label">タイトル</label>
                         <input type="text" class="form-control" th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'" id="title" th:field="*{title}">

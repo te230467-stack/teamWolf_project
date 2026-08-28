@@ -5,8 +5,12 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.model.Reserve;
 import com.example.model.User;
 import com.example.repository.UserRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -23,6 +27,10 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public List<User> getAllUser() {
+        return userRepository.findAll();
+    }
+
     // ユーザー登録
     public User createUser(User user) {
 
@@ -37,10 +45,7 @@ public class UserService {
 
         user.setPassword(encodedPassword);
 
-        // roleが設定されていなければ一般ユーザーにする
-        if (user.getRole() == null || user.getRole().isBlank()) {
-            user.setRole("ROLE_USER");
-        }
+        user.setRole("ROLE_USER");
 
         return userRepository.save(user);
     }

@@ -19,7 +19,7 @@
                             <span th:text="${error}"></span>
                         </div>
 
-                        <form th:action="@{/register}" method="post">
+                        <form th:action="@{/auth/register}" th:object=${user} method="post">
                             <div class="mb-3">
                                 <label for="username" class="form-label">ユーザー名</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
@@ -31,12 +31,13 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="role" class="form-label">ユーザタイプ</label>
-                                <select class="form-select" id="role" name="role" required>
-                                    <option value="">選択してください</option>
-                                    <option value="ROLE_USER">一般ユーザー</option>
-                                    <option value="ROLE_ADMIN">管理ユーザー</option>
-                                </select>
+                                <label for="email" class="form-label">email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phonenumber" class="form-label">電話番号</label>
+                                <input type="phonenumber" class="form-control" id="phonenumber" name="phonenumber" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary w-100">登録</button>
