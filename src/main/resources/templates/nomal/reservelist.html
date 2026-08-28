@@ -23,6 +23,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <span class="navbar-text text-white ms-auto">
+                        ユーザー: <span th:text="${#authentication.name}"></span>
+                        </span>
                         <tr th:each="reserve : ${reserves}">
                             <td th:text="${reserve.title}"></td>
                             <td th:text="${reserve.author}"></td>
@@ -41,6 +44,9 @@
                 <a th:href="@{/user/dashboard}">マイページに戻る</a>
                </div>
         </div>
-    </div> <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    </div> 
+    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js">
+        
+    </script>
 </body>
 </html>

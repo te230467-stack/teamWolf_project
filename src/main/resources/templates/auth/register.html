@@ -19,7 +19,7 @@
                             <span th:text="${error}"></span>
                         </div>
 
-                        <form th:action="@{/auth/register}" th:object=${user} method="post">
+                        <form th:action="@{/auth/register}" th:object="${user}" method="post">
                             <div class="mb-3">
                                 <label for="username" class="form-label">ユーザー名</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
@@ -37,7 +37,7 @@
 
                             <div class="mb-3">
                                 <label for="phonenumber" class="form-label">電話番号</label>
-                                <input type="phonenumber" class="form-control" id="phonenumber" name="phonenumber" required>
+                                <input type="tel" class="form-control" id="phonenumber" name="phonenumber" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary w-100">登録</button>
@@ -45,7 +45,7 @@
 
                         <hr>
                         <p class="text-center">
-                            <a href="login.html">ログイン画面へ</a>
+                            <a th:href="@{/auth/login}">ログイン画面へ</a>
                         </p>
                     </div>
                 </div>

@@ -19,6 +19,7 @@
                             <th>タイトル</th>
                             <th>著者</th>
                             <th>出版社</th>
+                            <th>予約状況</th>
                             <th>user_id</th>
                             <th>username</th>
                             <th>e-mail</th>
@@ -29,16 +30,42 @@
                         <tr th:each="reserve : ${reserves}">
                             <td th:text="${reserve.title}"></td>
                             <td th:text="${reserve.author}"></td>
+                            <td th:text="${reserve.orderStatus ? '発注済' : '未発注'}"></td>
                             <td th:text="${reserve.publisher}"></td>
                             <td th:text="${reserve.user.id}"></td>
                             <td th:text="${reserve.user.username}"></td>
                             <td th:text="${reserve.user.userProfile.email}"></td>
                             <td th:text="${reserve.user.userProfile.phonenumber}"></td>
+                            <td>
+                                <form th:action="@{/admin/reserves/edit/{id}(id=${reserve.id})}"
+                                    method="post">
+
+                                    <input type="hidden"
+                                            name="orderStatus"
+                                            th:value="${!reserve.orderStatus}">
+
+                                    <button type="submit"
+                                            class="delete-btn"
+                                            th:text="${reserve.orderStatus ? '発注済' : '未発注'}">
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    </div> <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    </div> 
+    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function changeStatus() {
+        const button = document.getElementById("statusButton");
+        if (button.textContent === "未発注") {
+            button.textContent = "発注済";
+        } else {
+            button.textContent = "未発注";
+        }
+    }
+    </script>
 </body>
 </html>

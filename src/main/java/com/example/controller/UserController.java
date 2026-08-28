@@ -27,7 +27,7 @@ public class UserController {
 
 
     @GetMapping("/dashboard")
-    public String showdashboard(Model model,Authentication authentication) {
+    public String showdashboard(Authentication authentication) {
         
         boolean isAdmin =
         authentication.getAuthorities().stream()
@@ -37,7 +37,7 @@ public class UserController {
         if(isAdmin){
             return "redirect:/admin/dashboard";
         }
-        return "dashboard_user";
+        return "nomal/dashboard";
 
     }
     
@@ -48,7 +48,7 @@ public class UserController {
         // 入力フォームと紐付けるため、空のReserveをHTMLへ渡す
         model.addAttribute("reserve", new Reserve());
 
-        return "reserve";
+        return "nomal/reserve";
     }
 
     // 予約登録処理
@@ -68,7 +68,7 @@ public class UserController {
 
         model.addAttribute("reserve", reserve);
         // 登録後は予約完了画面へ移動する
-        return "completion";
+        return "nomal/completion";
     }
 
     // 予約編集画面を表示する
@@ -85,7 +85,7 @@ public class UserController {
         // 取得した予約情報をHTMLへ渡す
         model.addAttribute("reserve", reserve);
 
-        return "edit";
+        return "nomal/user_edit";
     }
 
     // 予約更新処理
@@ -105,7 +105,7 @@ public class UserController {
         // Serviceから全予約を取得してHTMLへ渡す
         model.addAttribute("reserves", reserveService.getAllReserves());
 
-        return "reservelist";
+        return "nomal/reservelist";
     }
 
     // 予約削除処理

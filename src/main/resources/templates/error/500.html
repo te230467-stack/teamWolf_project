@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 Not Found | ページが見つかりません</title>
+</head>
+<body>
+
+    <div class="container">
+        <!-- エラーコード -->
+        <div class="error-code">500</div>
+        
+        <!-- エラータイトル -->
+        <h1 class="error-title">サーバーでエラーが発生しました</h1>
+        
+        <!-- 説明文 -->
+        <p class="error-message">
+            申し訳ありませんが、予期しないエラーが発生しました。時間をおいて、もう一度お試しください。
+        </p>
+        
+        <!-- アクションボタン -->
+        <div style="margin-top: 15px;">
+            <a th:href="@{/user/dashboard}" class="btn-home">トップページに戻る</a>
+            <a th:href="@{/auth/login}">ログイン画面に戻る</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

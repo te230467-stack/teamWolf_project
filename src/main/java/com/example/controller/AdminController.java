@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+//import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,7 +27,7 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String showdashboard(Model model) {
-        return "dashboard_admin";
+        return "admin/admin_dashboard";
     }
 
     // GET /admin/reserves
@@ -37,18 +37,18 @@ public class AdminController {
         model.addAttribute(
                 "reserves",
                 reserveService.getAllReserves());
-        return "admin_reservelist";
+        return "admin/admin_reservelist";
     }
 
+/*
     // GET /admin/reserves/new
     @GetMapping("/reserves/new")
     public String showReserveForm(Model model) {
 
         model.addAttribute("reserve", new Reserve());
 
-        return "admin-reserve-form";
+        return "admin/admin-reserve-form";
     }
-
     // POST /admin/reserves
     @PostMapping("/reserves")
     public String createReserve(Reserve reserve) {
@@ -57,6 +57,7 @@ public class AdminController {
 
         return "redirect:/admin/reserves";
     }
+ 
 
     // GET /admin/reserves/edit/{id}
     @GetMapping("/reserves/edit/{id}")
@@ -103,4 +104,27 @@ public class AdminController {
 
         return "redirect:/admin/reserves";
     }
+
+    //管理者用：発注状態を確認
+    // 管理者用：発注状態を変更
+    @PostMapping("/admin/reserves/edit/{id}")
+    public String changeStatus(
+            @PathVariable Long id,
+            @RequestParam boolean orderStatus) {
+
+        reserveService.updateOrderStatus(id, orderStatus);
+
+        return "redirect:/employee/orders";
+    }
+ */
+@PostMapping("/reserves/edit/{id}")
+public String changeStatus(
+        @PathVariable Long id,
+        @RequestParam boolean orderStatus) {
+
+    reserveService.updateOrderStatus(id, orderStatus);
+
+    return "redirect:/admin/reserves";
+}
+        
 }
